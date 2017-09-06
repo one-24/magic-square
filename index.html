@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>魔方</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul {
+            list-style: none;
+        }
+        #box {
+            height: 300px;
+            width: 300px;
+           /* border: 1px solid #000;*/
+            margin:100px auto;
+            position: relative;
+            -webkit-transform: rotateX(-10deg) rotateY(-20deg);
+            -moz-transform: rotateX(-10deg) rotateY(-20deg);
+            -ms-transform: rotateX(-10deg) rotateY(-20deg);
+            -o-transform: rotateX(-10deg) rotateY(-20deg);
+            transform: rotateX(-10deg) rotateY(-20deg);
+            transform-style: preserve-3d;
+            animation: rot 20s linear 3s infinite ;
+        }
+        @keyframes rot {
+            0%{
+            transform:rotateX(-10deg) rotateY(-20deg);
+            }
+            100%{
+            transform:rotateX(1080deg) rotateY(1080deg);
+            }
+        }
+        #box>div{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+
+        }
+
+        #left {
+            -webkit-transform: translateX(-150px) rotateY(-90deg);
+            -moz-transform: translateX(-150px) rotateY(-90deg);
+            -ms-transform: translateX(-150px) rotateY(-90deg);
+            -o-transform: translateX(-150px) rotateY(-90deg);
+            transform: translateX(-150px) rotateY(-90deg);
+            /*background-color: mediumslateblue;*/
+
+        }
+        #right {
+            -webkit-transform: translateX(150px) rotateY(90deg);
+            -moz-transform: translateX(150px) rotateY(90deg);
+            -ms-transform: translateX(150px) rotateY(90deg);
+            -o-transform: translateX(150px) rotateY(90deg);
+            transform: translateX(150px) rotateY(90deg);
+            /*background-color: #ccc;*/
+        }
+        #top {
+            -webkit-transform: translateY(-150px) rotateX(90deg);
+            -moz-transform: translateY(-150px) rotateX(90deg);
+            -ms-transform: translateY(-150px) rotateX(90deg);
+            -o-transform: translateY(-150px) rotateX(90deg);
+            transform: translateY(-150px) rotateX(90deg);
+            /*background-color: green;*/
+
+        }
+        #bottom {
+            -webkit-transform: translateY(150px) rotateX(-90deg);
+            -moz-transform: translateY(150px) rotateX(-90deg);
+            -ms-transform: translateY(150px) rotateX(-90deg);
+            -o-transform: translateY(150px) rotateX(-90deg);
+            transform: translateY(150px) rotateX(-90deg);
+            /*background-color: blue;*/
+        }
+        #behind {
+            -webkit-transform: translateZ(-150px);
+            -moz-transform: translateZ(-150px);
+            -ms-transform: translateZ(-150px);
+            -o-transform: translateZ(-150px);
+            transform: translateZ(-150px);
+            /*background-color: skyblue;*/
+        }
+        #front {
+            -webkit-transform: translateZ(150px);
+            -moz-transform: translateZ(150px);
+            -ms-transform: translateZ(150px);
+            -o-transform: translateZ(150px);
+            transform: translateZ(150px);
+        }
+        #box ul li {
+            float: left;
+            width: 100px;
+            height: 100px;
+            position: relative;
+            /*background-color: #000;*/
+            border: 1px solid #fff;
+            box-sizing: border-box;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="left">
+
+    </div>
+    <div id="right">
+
+    </div>
+    <div id="top">
+
+    </div>
+    <div id="bottom">
+
+    </div>
+    <div id="behind">
+
+    </div>
+    <div id="front">
+
+    </div>
+</div>
+<script src='jquery.js'></script>
+<script>
+    var box = $('#box')
+    var dvs = box.children('div')
+    var colors = ['#f40','mediumslateblue','greenyellow','skyblue','#ccc','deeppink']
+    var positions = []
+
+    //console.log(dvs)
+    dvs.each(function(index,item){
+        var ul = $('<ul></ul>')
+        for(var i = 0 ; i < 9;i++){
+            var li =$('<li></li>')
+            li.css('backgroundColor',colors[index])
+            ul.append(li)
+        }
+        $(item).append(ul)
+    })
+    $('li').each(function(index,item){
+        for(var i = 0 ; i< 54;i++){
+            positions.push(parseInt(Math.random()*500))
+        }
+        $(item).css({'left':positions[index],'top':positions[index-1]})
+    })
+    $('li').each(function(index,item){
+        $(item).animate({'left':0,'top':0},3000)
+    })
+</script>
+</body>
+</html>
